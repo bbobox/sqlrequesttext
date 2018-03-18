@@ -7,11 +7,28 @@ public class Tags {
 	private ArrayList<String> words;	
 	private String name;
 	
+	private  boolean is_sql_table;
+	private String  table_name="";
+	
+	private boolean is_rubrique;
+	private String rubrique_name="";
+	
 	
 	public Tags(String nom){
 		name=nom;
 		words= new ArrayList<String>();
+		is_sql_table=false;
 				
+	}
+	
+	/**
+	 * @param nom : nom du tags
+	 * @param tablename : nom de la table correspondante
+	 */
+	
+	public Tags(String nom, String tablename){
+		this.table_name=tablename;
+		is_sql_table=true;
 	}
 	
 	public void addWords(String word){
@@ -54,7 +71,17 @@ public class Tags {
 	}
 	
 	
+	public String getTableName(){
+		
+		return table_name;
+	}
 	
+	
+	public boolean isSqlTable(){
+		
+		return is_sql_table;
+	}
+	/*
 
 	 public static void main(String args[]){
 		
@@ -68,7 +95,6 @@ public class Tags {
 		
 		
 		// Ajouts des verbe
-		
 		Tags verbe= new Tags("verbre");
 		
 		verbe.addWords("est");
@@ -77,7 +103,9 @@ public class Tags {
 		
 		verbe.printSet();
 		
-	}
+	}*/
+	 
+	 
 	
 	
 }

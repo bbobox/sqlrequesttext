@@ -9,11 +9,20 @@ public class Rule {
 	private State state1;
 	private State state2;
 	
-	private ArrayList<Tags> possibilities;
+	private ArrayList<Tag> possibilities;
+	
+	private ArrayList<Motor> sub_automatom;
+	
+    String text= "";
+    
+    RequestInfo rInfo;
 		
 	public Rule (State e2){
-		possibilities= new ArrayList<Tags>();
+		possibilities= new ArrayList<Tag>();
+		sub_automatom= new ArrayList<Motor>();
 		state2=e2;
+		
+		rInfo= new RequestInfo();
 	}
 	
 
@@ -38,19 +47,19 @@ public class Rule {
 	}
 
 
-	public ArrayList<Tags> getPossibilities() {
+	public ArrayList<Tag> getPossibilities() {
 		return possibilities;
 	}
 
 
-	public void setPossibilities(ArrayList<Tags> possibilities) {
+	public void setPossibilities(ArrayList<Tag> possibilities) {
 		this.possibilities = possibilities;
 	}
 	
 	
-	public void addTags(Tags t){
+	public void addTags(Tag t1){
 		
-		possibilities.add(t);
+		possibilities.add(t1);
 		
 	}
 	
@@ -60,15 +69,28 @@ public class Rule {
 		int i=0;
 		while(i<possibilities.size() && ok==false){
 			
-			Tags t= possibilities.get(i);
+			Tag t= possibilities.get(i);
 			boolean test= t.contentElement(mot);
 			if (test==true){
 				ok= true;
+				text=t.getTextAccepted();
+				if (t.rI()!=null){
+					rInfo=t.rI();
+				}
 			}
 			i++;
 		}
 		
 		return ok;
+	}
+	
+	public String getTextAccepted(){
+		return text;
+	}
+	
+	public RequestInfo rI() {
+		
+		return rInfo;
 	}
 	
 	

@@ -15,10 +15,38 @@ public class State {
 	
 	private State nextState=null;
 	
+   private String text="";
+   
+   RequestInfo rInfo;
+   
+   boolean hasTransition=false; 
+   
+   State epsiloTransition=null;
 	
+	
+	public boolean isTransition() {
+	return  hasTransition;
+}
+
+public void setTransition(boolean transition) {
+	this.hasTransition = transition;
+	
+}
+
+public State getEpsiloTransition() {
+	return epsiloTransition;
+}
+
+public void setEpsiloTransition(State epsiloTransition) {
+	this.epsiloTransition = epsiloTransition;
+	hasTransition=true;
+}
+
 	public State(int id){
 		id_etat= id;
 		rules =  new ArrayList <Rule>();
+		
+		rInfo= new RequestInfo();
 	}
 	
 	public boolean verif_etat( String mot){
@@ -28,10 +56,10 @@ public class State {
 			if(rules.get(i).verifETat(mot)==true){
 				ok=true;
 				nextState=rules.get(i).getState2();
+				text=rules.get(i).getTextAccepted();
+				rInfo=rules.get(i).rInfo;
 			}
-			else{
-				
-			}
+			
 			i++;
 		}
 
@@ -69,6 +97,22 @@ public class State {
 	public void printState(){
 		
 		System.out.println("etat ="+id_etat);
+	}
+	
+	public boolean equals(State s){
+		return (s.getId_etat()==this.getId_etat());
+		
+	}
+	
+	public String getTextAccepted() {
+		// TODO Auto-generated method stub
+		return text;
+	}
+	
+	
+	public RequestInfo rI() {
+		
+		return rInfo;
 	}
 
 
