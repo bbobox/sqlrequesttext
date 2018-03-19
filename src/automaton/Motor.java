@@ -219,7 +219,7 @@ public class Motor {
 	
 	// construction du traducteur
 	
-	public void constructionTraduction(){
+	public String  constructionTraduction(){
 		// 
 		sqlTrad.setSql_tables(rInfo.getRubrique());
 		sqlTrad.setAttrubriques(rInfo.getAttributes());
@@ -228,17 +228,13 @@ public class Motor {
 		
 		//sqlTrad.setQualificatifs(rInfo.getCouple_rubrique());
 		//System.out.println(sqlTrad.getQualificatifs().size());
-		
 		sqlTrad.printSqlRequest();
+		
+		return sqlTrad.getSqlrequest();
 		
 	}
 	
 	
-	 public static void main(String args[]){
-		 
-		
-	 }
-
 	public void setI(int i) {
 		this.i = i;
 	}
@@ -247,5 +243,5 @@ public class Motor {
 	public RequestInfo getrInfo() {
 		return rInfo;
 	}
-
+	
 }

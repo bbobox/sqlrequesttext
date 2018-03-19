@@ -15,7 +15,7 @@ public class RubriqueVal implements Tag {
 	public boolean contentElement(String word) {
 		
 		
-		if (!word.equalsIgnoreCase("")){
+		if (word.startsWith("<")){
 			
 			System.out.println("VALEUR="+word);
 			text=word;

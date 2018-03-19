@@ -78,38 +78,65 @@ public class SqlTraductor {
 		 sqlrequest=sqlrequest+ "SELECT ";
 		 
 		 // Ajout des rubriques
-		 if (typeInfo.size()>0){
+		/* if (typeInfo.size()>0){
 			 for(int i=0;i<typeInfo.size();i++){ 
 				 sqlrequest+=typeInfo.get(i);
 			 }
 		 }
 		 else{
 			 sqlrequest+="*";
+		 }*/
+		 
+		 Map<String,String> att= enlveOccu(typeInfo);
+		  
+		 if (att.size()>0){ 
+			   Iterator ite = att.entrySet().iterator();
+		       int idatt=0;
+		     //   System.out.print("Taille ===="+qualificatifs.size());
+		        while (ite.hasNext()) {
+		        	if(idatt!=0){
+		        		 sqlrequest+=" , ";
+		        	}
+		        		
+				          Map.Entry mapentry = (Map.Entry) ite.next();
+				          sqlrequest+=mapentry.getKey();
+				          idatt++;
+		        }
+		       
 		 }
+		 else{
+	        	sqlrequest+="*";
+	        }
 		 
 		  sqlrequest+=" FROM ";
 		  
 		// Ajout des Table
 		  
-		  int numtabl=0;
-		  for(int i=0;i<sql_tables.size();i++){ 
-			  if (numtabl<sql_tables.size()-1 && numtabl>0 ){
-				  sqlrequest+=",";
-			  }
-				 sqlrequest+=sql_tables.get(i);
-				 numtabl++;
-			 } 
+		  Map<String,String> tables= enlveOccu(sql_tables);
+		  
+		  
+		   Iterator it = tables.entrySet().iterator();
+	       int idtable=0;
+	     //   System.out.print("Taille ===="+qualificatifs.size());
+	        while (it.hasNext()) {
+	        	if(idtable!=0){
+	        		 sqlrequest+=" , ";
+	        	}
+	        		
+			          Map.Entry mapentry = (Map.Entry) it.next();
+			        /*  System.out.println("clé: "+mapentry.getKey()
+			                            + " | valeur: " + mapentry.getValue());*/
+			         // String val= ((String) mapentry.getValue()).replace("<","");
+			        //  val= val.replace(">","");
+			          sqlrequest+=mapentry.getKey();
+			          idtable++;
+	        } 
+
 		  
 		  if (qualificatifs.size()>0){
 		  
 			  sqlrequest+=" WHERE ";
-			 // AJout des Qualificatifs
-			  
-			  /*for(int i=0;i<qualificatifs.size();i++){ 
-					 sqlrequest+=qualificatifs.get(i);
-				 } */
-			  
-		      
+
 	
 		       Iterator iterator = qualificatifs.entrySet().iterator();
 		       int id=0;
@@ -122,13 +149,16 @@ public class SqlTraductor {
 				          Map.Entry mapentry = (Map.Entry) iterator.next();
 				          System.out.println("clé: "+mapentry.getKey()
 				                            + " | valeur: " + mapentry.getValue());
-				          sqlrequest+=mapentry.getKey()+"="+mapentry.getValue();
+				          String val= ((String) mapentry.getValue()).replace("<","");
+				          val= val.replace(">","");
+				          sqlrequest+=mapentry.getKey()+"="+"'"+val+"'";
 		        	id++;
 		        } 
 		      //  sqlrequest+=mapentry.getKey()+"="+Val;
 			 
 		  }
 		 
+		  sqlrequest+=";";
 		  System.out.println(sqlrequest);
 		
 	}
@@ -154,6 +184,16 @@ public class SqlTraductor {
 	}
 
 	
+	
+	public Map<String,String> enlveOccu (ArrayList<String> L){
+	
+		Map<String,String> res= new HashMap<String,String>();
+		
+		for (int i=0;i<L.size();i++){
+			res.put(L.get(i), L.get(i));
+		}
+		return res;
+	}
 	
 
 }
