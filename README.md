@@ -18,6 +18,7 @@ Utilisation:
 
 
 ======================================================================================
+
 Mots et types representés dans le  dictionnaire/ Lexique
 
 	Tables:
